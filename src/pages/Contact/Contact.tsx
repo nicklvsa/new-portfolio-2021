@@ -115,9 +115,6 @@ const ContactToast = () => {
                 <div className="control">
                     <button className="button is-link" type="submit">Submit</button>
                 </div>
-                <div className="control">
-                    <button className="button is-link is-light">Cancel</button>
-                </div>
             </div>
         </form>
     )
