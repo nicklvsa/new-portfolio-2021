@@ -293,7 +293,6 @@ const Skills = () => {
                     <button onClick={closeSkillModal} className="modal-close is-large" aria-label="close"></button>
                 </div>
             </div>
-            <button className="button is-outlined is-link mb-1" onClick={setupCanvas}>Refresh Skills</button>
             <div className="skills-container">
                 <canvas 
                     id="skills-canvas" 
