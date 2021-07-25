@@ -49,6 +49,7 @@ const Nav = (props: NavProps) => {
 						<div className="navbar-item has-dropdown is-hoverable">
 							<a className="navbar-link" href="#">More</a>
 							<div className="navbar-dropdown">
+								<Link to="/skills" className="navbar-item">Skills</Link>
 								<Link to="/resume" className="navbar-item">Resume</Link>
 								<Link to="/projects" className="navbar-item">Projects</Link>
 								<Link to="/socials" className="navbar-item">Socials</Link>

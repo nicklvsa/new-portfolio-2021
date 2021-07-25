@@ -1,0 +1,11 @@
+.skills-container {
+    margin: 0;
+    overflow: hidden;
+}
+
+.skills-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -100px;
+}

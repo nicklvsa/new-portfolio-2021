@@ -18,41 +18,6 @@ enum SortDir {
 const Projects = () => {
     const [projects, setProjects] = useState<Project[]>([]);
 
-    const onScroll = (gridItems: NodeListOf<HTMLElement>, w: number, h: number) => {
-        let pos = null, s = 0, s2 = 0;
-
-        for (let i = 0; i < gridItems.length; ++i) {
-            pos = gridItems[i].getBoundingClientRect();
-
-            s = (pos.top + (pos.height / 2) - (h / 2)) / h;
-            s = 1 - Math.abs(s);
-            s = (s < 0 ? 0 : (s > 1 ? 1 : s));
-            
-            s2 = (pos.left + (pos.width / 2) - (w / 2)) / w;
-            s2 = 1 - Math.abs(s2);
-            s2 = (s2 < 0 ? 0 : (s2 > 1 ? 1 : s2));
-            
-            s = (s + s2) / 2;
-
-            gridItems[i].style.transform = `scale("${s}")`;
-        }
-
-        requestAnimationFrame(() => onScroll(gridItems, w, h));
-    };
-
-    const handleProjectScrolling = () => {
-        const gridItems: NodeListOf<HTMLElement> = document.querySelectorAll('.project-grid-item');
-
-        const h = window.innerHeight;
-        const w = window.innerWidth;
-
-        const cr = gridItems[Math.round(gridItems.length) / 2]?.getBoundingClientRect();
-
-        window.scroll(cr.left - (w / 2) + (cr.width / 2), cr.top - (h / 2) + (cr.height / 2));
-
-        requestAnimationFrame(() => onScroll(gridItems, w, h));
-    };
-
     const sortAndSetProjects = (projs: Project[], order: SortDir) => {
         if (projs?.length <= 0) return;
 
@@ -97,7 +62,6 @@ const Projects = () => {
             .then((res: Project[]) => {
     
             sortAndSetProjects(res, SortDir.DESC);
-            //handleProjectScrolling();
         }).catch(err => {
             console.error(err);
         });

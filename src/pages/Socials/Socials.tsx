@@ -50,7 +50,7 @@ const Socials = () => {
                             <article className="tile is-child notification is-linkedin">
                                 <p className="title">LinkedIn</p>
                                 <p className="subtitle">
-                                    Fork me on LinkedIn @<a href="https://linkedin.com/nicksdesk">nicksdesk</a>
+                                    Add me on LinkedIn @<a href="https://linkedin.com/in/nicksdesk">nicksdesk</a>
                                 </p>
                             </article>
                         </div>
