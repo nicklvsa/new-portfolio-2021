@@ -13,6 +13,7 @@ const ContactToast = () => {
 
     const nameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
+    const messageRef = useRef<HTMLTextAreaElement>(null);
 
     const contactFormSubmitted = async (evt: React.FormEvent) => {
         evt.preventDefault();
@@ -60,6 +61,10 @@ const ContactToast = () => {
                         addToast('Successfully sent message!', {
                             appearance: 'success',
                         });
+
+                        if (nameRef.current) nameRef.current.value = '';
+                        if (emailRef.current) emailRef.current.value = '';
+                        if (messageRef.current) messageRef.current.value = '';
                     }
 				}
             }).subscribe(); 
@@ -102,7 +107,7 @@ const ContactToast = () => {
             <div className="field">
                 <label className="label">Message</label>
                 <div className="control">
-                    <textarea className="textarea" name="message" placeholder="Your message"></textarea>
+                    <textarea className="textarea" name="message" placeholder="Your message" ref={messageRef}></textarea>
                 </div>
                 <p className="help">Type your message here!</p>
             </div>
