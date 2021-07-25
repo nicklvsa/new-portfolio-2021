@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import { useState } from "react";
 import { useRef } from "react";
+import { Nullable } from "../../utils/sharedModels";
 import "./Skills.css";
 
 interface SkillDesc {
@@ -12,12 +14,12 @@ interface Skill {
     y: number;
     info: SkillDesc;
     color: string;
+    active: boolean;
 }
 
 const Skills = () => {
     const skillsCanvas = useRef<HTMLCanvasElement>(null);
-
-    let skills: Skill[] = [];
+    const [skillModal, setSkillModal] = useState<Nullable<Skill>>(null);
 
     const possibleColors = [
         '#79fa5b',
@@ -29,7 +31,16 @@ const Skills = () => {
     ];
 
     const possibleSkills: SkillDesc[] = [
-        {name: 'JS', desc: ''},
+        {   
+            name: 'JS', 
+            desc: `
+                Javascript - I frequently build both backends and frontends using 
+                Javascript. I have 3+ years of experiencing both building side projects
+                and production grade API's and frontends. Although I tend to jump to TypeScript
+                more than Javascript for its type safety and extra features, Javsacript is still one 
+                of my most heavily used languages.
+            `
+        },
         {name: 'TS', desc: ''},
         {name: 'Go', desc: ''},
         {name: 'Java', desc: ''},
@@ -42,7 +53,6 @@ const Skills = () => {
         {name: 'Vue', desc: ''},
         {name: 'React', desc: ''},
         {name: 'Angular', desc: ''},
-        {name: 'JS', desc: ''},
         {name: 'GinGonic', desc: ''},
         {name: 'Mux', desc: ''},
         {name: 'GraphQL', desc: ''},
@@ -57,15 +67,19 @@ const Skills = () => {
         {name: 'Design', desc: ''},
     ];
 
-    const ctx = skillsCanvas?.current?.getContext('2d');
+    let ctx = skillsCanvas?.current?.getContext('2d');
     const PADDING = 50, RADIUS = 75, PADDING_Y = 70;
 
     let animationID: number;
-    let i: number, j: number, x: number, y: number, c: number;
+    let  x: number, y: number;
     let centerX: number, centerY: number, offsetX: number, offsetY: number;
     let mouseX: number, mouseY: number;
+
+    let skills: Skill[] = [];
     
     const setDefaults = () => {
+        ctx = skillsCanvas?.current?.getContext('2d');
+
         skills = [];
 
         if (skillsCanvas && skillsCanvas.current) {
@@ -91,7 +105,7 @@ const Skills = () => {
         const getClosest = () => {
             let close = 0, closest = 0, dx: number, dy: number, dist: number;
         
-            for (i = 0; i < skills.length; i++) {
+            for (let i = 0; i < skills.length; i++) {
                 dx = skills[i].x + offsetX - centerX;
                 dy = skills[i].y + offsetY - centerY;
             
@@ -122,6 +136,18 @@ const Skills = () => {
             return scale;
         }
 
+        const clearPastActiveSkills = (except?: number) => {
+            for (let i = 0; i < skills.length; i++) {
+                skills[i].active = false;
+            }
+
+            if (except) {
+                skills[except].active = true;
+            }
+        };
+
+        clearPastActiveSkills();
+
         ctx?.clearRect(0, 0, skillsCanvas?.current?.width ?? 0, skillsCanvas?.current?.height ?? 0);
         ctx?.save();
 
@@ -131,7 +157,7 @@ const Skills = () => {
 
         closest = getClosest();
 
-        for (i = 0; i < skills.length; i++) {
+        for (let i = 0; i < skills.length; i++) {
             if (ctx) {
                 ctx.save();
 
@@ -148,6 +174,8 @@ const Skills = () => {
                 ctx.closePath();
 
                 if (i === closest) {
+                    clearPastActiveSkills(i);
+
                     ctx.strokeStyle = "white";
                     ctx.lineWidth = 10;
                     ctx.stroke();
@@ -181,10 +209,24 @@ const Skills = () => {
         }
     };
 
+    const handleCanvasClicked = (evt: any) => {
+        if (skillsCanvas && skillsCanvas.current) {
+            for (const skill of skills) {
+                if (skill.active) {
+                    setTimeout(() => setSkillModal(skill), 250);
+                }
+            }
+        }
+    };
+
     const replacePastListeners = () => {
+        cancelAnimationFrame(animationID);
+
+        skillsCanvas.current?.removeEventListener('click', handleCanvasClicked);
         document.removeEventListener('mousemove', handleMouseMovedEvent);
         window.removeEventListener('resize', handleWindowResizedEvent);
-        cancelAnimationFrame(animationID);
+
+        skillsCanvas.current?.addEventListener('click', handleCanvasClicked);
 
         document.addEventListener('mousedown', () => {
             document.addEventListener('mousemove', handleMouseMovedEvent)
@@ -201,16 +243,17 @@ const Skills = () => {
         setDefaults();
 
         if (skillsCanvas.current) {
-            for (i = 0; i < 10; i++) {
-                for (j = 0; j < 10; j++) {
-                    c = Math.floor(Math.random() * possibleColors.length);
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    const colorIdx = Math.floor(Math.random() * possibleColors.length);
                     const skillIdx = Math.floor(Math.random() * possibleSkills.length);
 
                     skills.push({
                         x: x, 
                         y: y, 
-                        color: possibleColors[c],
+                        color: possibleColors[colorIdx],
                         info: possibleSkills[skillIdx],
+                        active: false,
                     });
 
                     x += RADIUS + PADDING;
@@ -230,12 +273,26 @@ const Skills = () => {
         }
     };
 
+    const closeSkillModal = () => {
+        setSkillModal(null);
+    }
+
     useEffect(() => {
         setupCanvas();
-    });
+    }, []);
  
     return (
         <div className="has-text-centered">
+            <div className="modal-container">
+                <div className={skillModal !== null ? "modal modal-fx-fadeInScale is-active" : "modal modal-fx-fadeInScale"}>
+                    <div className="modal-background"></div>
+                    <div className="modal-content is-huge skills-content">
+                        <p className="title">{skillModal?.info.name}</p><hr/>
+                        <p className="subtitle">{skillModal?.info.desc}</p>
+                    </div>
+                    <button onClick={closeSkillModal} className="modal-close is-large" aria-label="close"></button>
+                </div>
+            </div>
             <button className="button is-outlined is-link mb-1" onClick={setupCanvas}>Refresh Skills</button>
             <div className="skills-container">
                 <canvas 

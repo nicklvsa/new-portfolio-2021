@@ -9,3 +9,10 @@
     justify-content: center;
     margin-top: -100px;
 }
+
+.skills-content {
+    text-align: center;
+    overflow: hidden;
+    height: 50%;
+    max-width: 50%;
+}
