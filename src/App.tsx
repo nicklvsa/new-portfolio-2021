@@ -15,6 +15,7 @@ import { useState, useEffect } from 'react';
 
 import { useSpring, animated } from 'react-spring';
 import Projects from './pages/Projects/Projects';
+import Socials from './pages/Socials/Socials';
 
 const App = () => {
 	const [dark, setDark] = useState<boolean>(false);
@@ -68,6 +69,10 @@ const App = () => {
 						<Route path="/projects">
 							<h1 className="has-text-centered is-size-1">Projects</h1><hr/>
 							<Projects/>
+						</Route>
+						<Route path="/socials">
+							<h1 className="has-text-centered is-size-1">Socials</h1><hr/>
+							<Socials/>
 						</Route>
 						<Route path="/">
 							<h1 className="has-text-centered is-size-1">Home</h1><hr/>

@@ -1,7 +1,6 @@
 import React from "react";
-import { useRef } from "react";
-import { useState, useEffect } from "react";
-import { Nullable } from "../../utils/sharedModels";
+import { useState, useMemo } from "react";
+import { getEnv } from "../../utils/sharedFuncs";
 import './Projects.css';
 
 interface Project {
@@ -17,18 +16,7 @@ enum SortDir {
 }
 
 const Projects = () => {
-    const retries = 60000;
-    let timer: Nullable<NodeJS.Timeout> = null;
-
     const [projects, setProjects] = useState<Project[]>([]);
-    
-    const setupRetry = (cb: () => any) => {
-        if (timer) {
-            clearInterval(timer);
-        }
-
-        timer = setInterval(cb, retries);
-    };
 
     const onScroll = (gridItems: NodeListOf<HTMLElement>, w: number, h: number) => {
         let pos = null, s = 0, s2 = 0;
@@ -99,24 +87,21 @@ const Projects = () => {
         setProjects([...sorted]);
     };
 
-    const fetchData = () => {
+    useMemo(() => {
         const headers = new Headers({
-            "Authorization": `'Basic ${btoa(`nicklvsa:${process.env.GITHUB_ACCESS_TOKEN}`)}`,
+            "Authorization": `'Basic ${btoa(`nicklvsa:${getEnv<string>('GITHUB_ACCESS_TOKEN')}`)}`,
         });
         
         fetch('https://api.github.com/users/nicklvsa/repos', {headers: headers})
             .then(data => data.json())
             .then((res: Project[]) => {
-
+    
             sortAndSetProjects(res, SortDir.DESC);
-            handleProjectScrolling();
+            //handleProjectScrolling();
         }).catch(err => {
             console.error(err);
-            setupRetry(fetchData);
         });
-    };
-
-    fetchData();
+    }, []);
 
     return (
         <div>

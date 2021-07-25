@@ -51,7 +51,7 @@ const Nav = (props: NavProps) => {
 							<div className="navbar-dropdown">
 								<Link to="/resume" className="navbar-item">Resume</Link>
 								<Link to="/projects" className="navbar-item">Projects</Link>
-								<a className="navbar-item" href="#">Socials</a>
+								<Link to="/socials" className="navbar-item">Socials</Link>
 								<hr className="navbar-divider"/>
 								<a className="navbar-item" href="#">Report an issue</a>
 							</div>
