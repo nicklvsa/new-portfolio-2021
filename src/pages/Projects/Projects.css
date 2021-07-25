@@ -1,0 +1,25 @@
+.project-card-container::before {
+    margin: 0;
+    padding: 0;
+    -ms-scroll-rails: none;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.project-grid {
+    width: 100%;
+}
+
+.project-grid-item::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.project-grid-item {
+    box-sizing: border-box;
+    text-align: center;
+    padding-top: 100px;
+    overflow: hidden;
+    float: left;
+    margin: 0px;
+}

@@ -1,26 +1,87 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+} from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Home from './pages/Home/Home';
+import Contact from './pages/Contact/Contact';
+import About from './pages/About/About';
+import Resume from './pages/Resume/Resume';
+
+import Footer from './components/Footer/Footer';
+import Nav from './components/Nav/Nav';
+import { useState, useEffect } from 'react';
+
+import { useSpring, animated } from 'react-spring';
+import Projects from './pages/Projects/Projects';
+
+const App = () => {
+	const [dark, setDark] = useState<boolean>(false);
+
+	useEffect(() => {
+		const head = document.head;
+		const link = document.createElement('link');
+
+		link.type = 'text/css';
+		link.rel = 'stylesheet';
+		link.href = dark ? 'https://unpkg.com/bulma-prefers-dark' : 'https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css';
+
+		head.appendChild(link);
+
+		return () => { 
+			head.removeChild(link) 
+		};
+	}, [dark]);
+
+	const props = useSpring({
+		to: {
+			opacity: 1,
+		},
+		from: {
+			opacity: 0,
+		}
+	});
+
+	return (
+		<Router>
+			<animated.div className="App" style={props}>
+				<header>
+					<Nav darkModeCallback={(isDark: boolean) => {
+						setDark(isDark);
+					}}/>
+				</header>
+				<main className="container main-container">
+					<Switch>
+						<Route path="/about">
+							<h1 className="has-text-centered is-size-1">About</h1><hr/>
+							<About/>
+						</Route>
+						<Route path="/contact">
+							<h1 className="has-text-centered is-size-1">Contact Me</h1><hr/>
+							<Contact/>
+						</Route>
+						<Route path="/resume">
+							<h1 className="has-text-centered is-size-1">My Resume</h1><hr/>
+							<Resume/>
+						</Route>
+						<Route path="/projects">
+							<h1 className="has-text-centered is-size-1">Projects</h1><hr/>
+							<Projects/>
+						</Route>
+						<Route path="/">
+							<h1 className="has-text-centered is-size-1">Home</h1><hr/>
+							<Home/>
+						</Route>
+					</Switch>
+				</main>
+				
+				<footer>
+					<Footer/>
+				</footer>
+			</animated.div>
+		</Router>
+	);
+};
 
 export default App;
