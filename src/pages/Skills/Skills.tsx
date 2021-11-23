@@ -279,7 +279,7 @@ const Skills = () => {
 
     useEffect(() => {
         setupCanvas();
-    }, []);
+    });
  
     return (
         <div className="has-text-centered">

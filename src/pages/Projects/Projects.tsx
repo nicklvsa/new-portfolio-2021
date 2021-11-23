@@ -83,6 +83,8 @@ const Projects = () => {
                                                 <option value={dir} key={key}>{dir}</option>
                                             )
                                         }
+
+                                        return <></>
                                     })
                                 }
                             </select>
