@@ -34,8 +34,8 @@ const ContactToast = () => {
         }
 
         const { error } = await getSupabaseClient()
-            .from('contact_messages').
-            insert([
+            .from('contact_messages')
+            .insert([
                 {
                     email: target.email.value,
                     name: target.name.value,
@@ -72,7 +72,7 @@ const ContactToast = () => {
 		return () => {
 			msgSubscription.unsubscribe();
 		};
-	}, []);
+	});
 
     return (
         <form className="mt-6" onSubmit={contactFormSubmitted}>

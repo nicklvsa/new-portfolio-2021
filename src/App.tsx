@@ -57,7 +57,7 @@ const App = () => {
 					<Switch>
 						<Route path="/about">
 							<h1 className="has-text-centered is-size-1">About</h1><hr/>
-							<About/>
+							<About dark={dark}/>
 						</Route>
 						<Route path="/contact">
 							<h1 className="has-text-centered is-size-1">Contact Me</h1><hr/>
