@@ -12,9 +12,9 @@ const About = (props: AboutProps) => {
     const mapContainer = useRef<HTMLDivElement>(null);
     const map = useRef<mapboxgl.Map | null>(null);
 
-    const [lng, setLng] = useState<number>(40);
-    const [lat, setLat] = useState<number>(76);
-    const [zoom, setZoom] = useState<number>(3);
+    const [lng, setLng] = useState<number>(-76.9);
+    const [lat, setLat] = useState<number>(40.7);
+    const [zoom, setZoom] = useState<number>(6);
 
     useEffect(() => {
         if (props.dark) {

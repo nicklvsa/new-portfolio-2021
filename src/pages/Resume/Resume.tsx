@@ -74,7 +74,7 @@ const Resume = () => {
 
     return (
         <div className="has-text-centered">
-            <p onClick={showResumeModal} style={{marginBottom: '20px', marginTop: '-10px', cursor: 'pointer'}}>having problems?</p>
+            <p onClick={showResumeModal} style={{marginBottom: '20px', marginTop: '-10px', cursor: 'pointer'}}>Click here if PDF is not showing</p>
             <div className="modal-container">
                 <div className={showingResumeModal ? "modal modal-fx-fadeInScale is-active" : "modal modal-fx-fadeInScale"}>
                     <div className="modal-background"></div>

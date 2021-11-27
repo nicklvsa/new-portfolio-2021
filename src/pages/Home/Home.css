@@ -1,10 +1,66 @@
 .slidein-hero {
     animation: 0.5s slide-left 0.5s forwards;
-    transform: translateX(-100%);
+    transform: translateX(-250%);
+}
+
+.home-container {
+    display: flex; 
+    justify-content: space-around;
+    margin: 15px;
+}
+
+.page-title {
+    font-size: 40px;
+}
+
+.page-subtitle {
+    font-size: 18px;
+    text-indent: 25px;
+}
+
+.slidein-container {
+    width: 100%;
+    padding-right: 50px;
+}
+
+.home-main-content {
+    justify-content: center;
+    text-align: center;
+}
+
+.experience-list {
+    display: flex;
+}
+
+.exp-item {
+    flex: 1;
+    margin: 10px;
+}
+
+.page-subtitle > a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.exp-item > article > p > a {
+    text-decoration: none;
+    color: white;
+}
+
+.exp-item > article > p > a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+    color: black;
 }
   
 @keyframes slide-left {
     to {
         transform:translateX(0);
+    }
+}
+
+@media (max-width: 400px) {
+    .experience-list {
+        display: block;
     }
 }
