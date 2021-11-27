@@ -29,7 +29,7 @@ const Home = () => {
             <div className="home-main-container">
                 <h1 className="page-title centered">Hello, my name is Nick!</h1>
                 <p className="page-subtitle mt-5">
-                    I'm a software engineer currently working for <Link to="https://mapbox.com">Mapbox</Link> helping to
+                    I'm a software engineer currently working for <a href="https://mapbox.com" target="_blank">Mapbox</a> helping to
                     build awesome mapping products! As a software engineer at Mapbox, I work on the Raster team helping
                     to design and build data ingestion pipelines as well as APIs to serve our internal and customer 
                     ingested data. My specialities include: API design, microservice architecture, data ingestion, 
@@ -42,7 +42,7 @@ const Home = () => {
                     <div className="exp-item">
                         <article className="panel is-link">
                             <p className="panel-heading">
-                                <a href="https://lcti.org">LCTI</a> - <small>Internship</small>
+                                <a href="https://lcti.org" target="_blank">LCTI</a> - <small>Internship</small>
                             </p>
                             <div className="panel-block">
                                 testing
@@ -52,7 +52,7 @@ const Home = () => {
                     <div className="exp-item">
                         <article className="panel is-info">
                             <p className="panel-heading">
-                                <a href="https://homehero.com">HomeHero</a> - <small>Internship</small>
+                                <a href="https://homehero.com" target="_blank">HomeHero</a> - <small>Internship</small>
                             </p>
                             <div className="panel-block">
                                 testing
@@ -64,7 +64,7 @@ const Home = () => {
                     <div className="exp-item">
                         <article className="panel is-primary">
                             <p className="panel-heading">
-                                <a href="https://homehero.com">HomeHero</a> - <small>Full time</small>
+                                <a href="https://homehero.com" target="_blank">HomeHero</a> - <small>Full time</small>
                             </p>
                             <div className="panel-block">
                                 testing
@@ -74,7 +74,7 @@ const Home = () => {
                     <div className="exp-item">
                         <article className="panel is-success">
                             <p className="panel-heading">
-                                <a href="https://mapbox.com">Mapbox</a> - <small>Full time</small>
+                                <a href="https://mapbox.com" target="_blank">Mapbox</a> - <small>Full time</small>
                             </p>
                             <div className="panel-block">
                                 testing
