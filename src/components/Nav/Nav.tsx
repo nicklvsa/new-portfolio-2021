@@ -39,9 +39,9 @@ const Nav = (props: NavProps) => {
             </div>
             <nav className="navbar" role="navigation" aria-label="main navigation">
 				<div className="navbar-brand">
-					<a className="navbar-item" href="https://nicksdesk.com">
+					<Link className="navbar-item" to="/">
 						<h1><strong>Nick's Desk</strong></h1>
-					</a>
+					</Link>
 					<a role="button" 
                         className={!isBurgerActive ? "navbar-burger is-active" : "navbar-burger"}
                         aria-label="menu" 
